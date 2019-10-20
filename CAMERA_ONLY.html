@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+  
+   
+    
+    <style>
+          
+            #mvideo{
+                padding: 0px;
+                margin: 0px;  
+            }
+
+            #player{
+                border: 1px solid #999;
+                border-radius: 10px;
+                padding: 0px;
+                margin-top: 5px;
+                margin-bottom: 10px; 
+            }
+
+            .snapshots{
+                border-left: 1px solid #fff;
+                height: 49vw;
+                padding: 5px;
+                border-radius: 10px;
+                background-color: #eee;  
+               }
+
+         
+           
+           
+</style>
+
+    <script src="https://kit.fontawesome.com/d794947902.js"></script>
+</head>
+<body>
+
+        
+        <div id="mvideo" class="row"><video id="player" class="col-12" autoplay="1"></video>
+            <div class="row">
+                 <canvas id="snapshot1" class="col-6 snapshots"></canvas>
+                 <canvas id="snapshot2" class="col-6 snapshots"></canvas>
+                 <div id="capture1" class="shutter col-6"><i class="fa-5x fas fa-camera"></i>１......CLICKして写真を撮ろう!</div>
+                 <div id="capture2"  class="shutter col-6"><i class="fa-5x fas fa-camera"></i>２......CLICKして写真を撮ろう!</div>
+            </div>    
+        </div> 
+
+        
+
+<script>
+                    var player = document.getElementById('player');
+                    var snapshotCanvas = document.getElementsByClassName('snapshots')[0];
+                    var captureButton = document.getElementById('capture1');
+                    var handleSuccess = function(stream) {
+                        // Attach the video stream to the video element and autoplay.
+                    player.srcObject = stream;
+                    };
+                    captureButton.addEventListener('click', function() {
+                    var context = snapshot1.getContext('2d');
+                    // Draw the video frame to the canvas.
+                    context.drawImage(player, 0, 0, snapshotCanvas.width,
+                    snapshotCanvas.height);
+                    });
+                    navigator.mediaDevices.getUserMedia({video: true})
+                    .then(handleSuccess);
+                   
+
+
+                    var player = document.getElementById('player');
+                    var snapshotCanvas = document.getElementsByClassName('snapshots')[1];
+                    var captureButton = document.getElementById('capture2');
+                    var handleSuccess = function(stream) {
+                        // Attach the video stream to the video element and autoplay.
+                    player.srcObject = stream;
+                    };
+                    captureButton.addEventListener('click', function() {
+                    var context = snapshot2.getContext('2d');
+                    // Draw the video frame to the canvas.
+                    context.drawImage(player, 0, 0, snapshotCanvas.width,
+                    snapshotCanvas.height);
+                    });
+                    navigator.mediaDevices.getUserMedia({video: true})
+                    .then(handleSuccess);
+
+  </script>
+
+
+</div>
+</body>
+</html>
